@@ -1,0 +1,60 @@
+﻿@model mvc_class_d1.Models.ProductEdit
+
+@{
+    Layout = null;
+    ViewBag.Title = "Edit";
+}
+
+@*@using (Html.BeginForm("Edit", "Product", FormMethod.Post,new { @id = "editForm" }))
+{*@
+<form id="editForm">
+    <div>
+        @Html.LabelFor(m => m.product_id)
+        @Html.EditorFor(m => m.product_id, new { AllowHtmlAttribute = new { @class = "form_controll", @readonly = "@Readonly" } })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.name)
+        @Html.EditorFor(m => m.name)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.unit)
+        @Html.EditorFor(m => m.unit)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.spec)
+        @Html.EditorFor(m => m.spec)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.description)
+        @Html.EditorFor(m => m.description)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.price)
+        @Html.EditorFor(m => m.price)
+    </div>
+    <div>
+        <!--<input type="submit" value="儲存">-->
+        <input type="submit" value="儲存"  onclick="doSave()">
+    </div>
+</form>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        function doSave() {
+            var formData = $("#editForm").serializeArray();
+            console.log(formData)
+            $.ajax({
+                url: '/api/ProductApi',
+                method: "PUT",
+                data: formData,
+                success: function (res) {
+                    alert(res.Message);
+                    /* window.location = "http://localhost:1219/Product/"*/
+                    window.location.replace("http://localhost:1219/Product");
+                },
+                error: function (xhr, textStatus, error) {
+                    console.log(xhr.responseJSON.ExceptionMessage);
+                }
+            })
+        }
+    </script>
+@*}*@
